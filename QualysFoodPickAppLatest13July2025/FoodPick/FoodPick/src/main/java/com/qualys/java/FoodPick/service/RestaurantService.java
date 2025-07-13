@@ -1,17 +1,25 @@
 package com.qualys.java.FoodPick.service;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.qualys.java.FoodPick.entity.Restaurant;
+import com.qualys.java.FoodPick.repository.RestaurantRepository;
 
 @Service
 public class RestaurantService {
 	
-	/*
-	 * @Autowired public RestaurantRepository restRepo;
-	 * 
-	 * public void saveRestaurant(Restaurant restaurant) {
-	 * restRepo.saveRestaurant(); } public void saveCustomer(Customer customer) {
-	 * customerRepository.insertCustomer(customer.getCustID(),
-	 * customer.getCustName(), customer.getCustAddr(), customer.getCustPhoneNo()); }
-	 */
+	@Autowired
+	public RestaurantRepository restaurantRepository;
+	
+	public void createNewRestaurant(Restaurant restaurant) {
+		restaurantRepository.createNewRestaurant(restaurant.getRestaurantId(), restaurant.getRestaurantCategory(), restaurant.getRestaurantLocation(), restaurant.getRestaurantMenu(), restaurant.getRestaurantName());
+	}
+	
+	public List<Restaurant> getAllRestaurants() {
+        return restaurantRepository.getAllRestaurants();
+    }
 	
 }

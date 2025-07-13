@@ -11,7 +11,7 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity https) throws Exception {
 		https.csrf(csrf -> csrf.disable()).headers(headers -> headers.frameOptions().disable())
-				.authorizeHttpRequests(auth -> auth.requestMatchers("/h2-console/**", "/welcome/**","/foodpick/customers","/foodpick/customers/**")
+				.authorizeHttpRequests(auth -> auth.requestMatchers("/h2-console/**", "/welcome/**","/foodpick/customers","/foodpick/customers/**","/foodpick/restaurant","/foodpick/restaurant/**")
 						.permitAll().anyRequest().authenticated());
 		return https.build();
 	}

@@ -2,7 +2,10 @@ package com.qualys.java.FoodPick.entity;
 
 import java.util.List;
 
+import com.qualys.java.FoodPick.converter.StringListConverter;
+
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
@@ -18,6 +21,7 @@ public class Restaurant {
 	@Column
 	private String restaurantCategory;
 	@Column
+	@Convert(converter = StringListConverter.class)
 	private List<String> restaurantMenu;
 	
 	public Restaurant(int restaurantId, String restaurantName, String restaurantLocation, String restaurantCategory,
