@@ -18,13 +18,18 @@ public class Payment {
 	
 	@Column
 	private int restaurantId;
+	
+	@Column
+	private double amount;
 
-	public Payment(int paymentId, int customerId, int orderId, int restaurantId) {
-		super();
-		this.paymentId = paymentId;
-		this.customerId = customerId;
-		this.orderId = orderId;
-		this.restaurantId = restaurantId;
+	
+
+	public double getAmount() {
+		return amount;
+	}
+
+	public void setAmount(double amount) {
+		this.amount = amount;
 	}
 
 	public int getPaymentId() {
@@ -58,7 +63,18 @@ public class Payment {
 	public void setRestaurantId(int restaurantId) {
 		this.restaurantId = restaurantId;
 	}
-	
-	
-	
+
+	public Payment() {
+		super();
+	}
+
+	public Payment(int paymentId, int customerId, int orderId, int restaurantId, double amount) {
+		super();
+		this.paymentId = paymentId;
+		this.customerId = customerId;
+		this.orderId = orderId;
+		this.restaurantId = restaurantId;
+		this.amount = amount;
+	}
+
 }
