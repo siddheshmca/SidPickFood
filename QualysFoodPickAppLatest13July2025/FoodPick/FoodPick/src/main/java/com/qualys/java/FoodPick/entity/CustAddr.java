@@ -11,7 +11,6 @@ public class CustAddr {
 
 	@Id
 	private int custAddrId;
-
 	@OneToOne
 	@JoinColumn(name = "custID", referencedColumnName = "custID")
 	private Customer custId;

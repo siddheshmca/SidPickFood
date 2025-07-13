@@ -1,17 +1,22 @@
 package com.qualys.java.FoodPick.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.qualys.java.FoodPick.IdGenerator.GenerateIdImpl;
-
 @RestController
+@RequestMapping("/foodpick/restaurant")
 public class RestaurantController {
 
 	/*
 	 * @Autowired(required = true) public GenerateIdImpl genId;
 	 * 
-	 * int id = genId.generateId();
+	 * @Autowired private RestaurantService restaurantService;
+	 * 
+	 * @PostMapping public ResponseEntity<String> createCustomer(@RequestBody
+	 * Restaurant restaurant) { restaurant.setRestaurantId(genId.generateId());
+	 * System.out.println(restaurant.getRestaurantId());
+	 * restaurantService.saveRestaurant(restaurant); return
+	 * ResponseEntity.ok("Done"); }
 	 */
 	
 }

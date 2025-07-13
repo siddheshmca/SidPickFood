@@ -14,20 +14,21 @@ public class CustFoodOrder {
 	
 	@Id
 	private int orderId;
-	@Column
-	private int restaurantId;
+	@OneToOne
+	@JoinColumn(name = "restaurantId", referencedColumnName = "restaurantId")
+	private Restaurant restaurantId;
 	@OneToOne
 	@JoinColumn(name = "custID", referencedColumnName = "custID")
-	private int customerId;
+	private Customer customerId;
 	@Column
 	private LocalDate orderDate;
 	@Column
-	private List<List<String>> orderItems;
+	private List<String> orderItems;
 	@Column
-	private int totalPrice;
+	private double totalPrice;
 	
-	public CustFoodOrder(int orderId, int restaurantId, int customerId, LocalDate orderDate,
-			List<List<String>> orderItems, int totalPrice) {
+	public CustFoodOrder(int orderId, Restaurant restaurantId, Customer customerId, LocalDate orderDate,
+			List<String> orderItems, double totalPrice) {
 		super();
 		this.orderId = orderId;
 		this.restaurantId = restaurantId;
@@ -49,19 +50,19 @@ public class CustFoodOrder {
 		this.orderId = orderId;
 	}
 
-	public int getRestaurantId() {
+	public Restaurant getRestaurantId() {
 		return restaurantId;
 	}
 
-	public void setRestaurantId(int restaurantId) {
+	public void setRestaurantId(Restaurant restaurantId) {
 		this.restaurantId = restaurantId;
 	}
 
-	public int getCustomerId() {
+	public Customer getCustomerId() {
 		return customerId;
 	}
 
-	public void setCustomerId(int customerId) {
+	public void setCustomerId(Customer customerId) {
 		this.customerId = customerId;
 	}
 
@@ -73,19 +74,19 @@ public class CustFoodOrder {
 		this.orderDate = orderDate;
 	}
 
-	public List<List<String>> getOrderItems() {
+	public List<String> getOrderItems() {
 		return orderItems;
 	}
 
-	public void setOrderItems(List<List<String>> orderItems) {
+	public void setOrderItems(List<String> orderItems) {
 		this.orderItems = orderItems;
 	}
 
-	public int getTotalPrice() {
+	public double getTotalPrice() {
 		return totalPrice;
 	}
 
-	public void setTotalPrice(int totalPrice) {
+	public void setTotalPrice(double totalPrice) {
 		this.totalPrice = totalPrice;
 	}
 	
