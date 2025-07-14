@@ -15,8 +15,8 @@ public class CustomerService {
 	private CustomerRepository customerRepository;
 
 	public void saveCustomer(Customer customer) {
-		customerRepository.insertCustomer(customer.getCustID(), customer.getCustName(), customer.getCustAddr(),
-				customer.getCustPhoneNo());
+		customerRepository.insertCustomer(customer.getCust_id(), customer.getCust_Name(), customer.getCust_Addr(),
+				customer.getCust_Phone_No());
 	}
 
 	public List<Customer> getAllCustomers() {
@@ -37,38 +37,39 @@ public class CustomerService {
 
 		boolean isUpdated = false;
 
-		if (partialCustomer.getCustName() == null) {
-			partialCustomer.setCustName(customerName);
+		if (partialCustomer.getCust_Name() == null) {
+			partialCustomer.setCust_Name(customerName);
 			isUpdated = false;
 		}
 
-		if (partialCustomer.getCustAddr() == null) {
-			partialCustomer.setCustAddr(customerAddress);
-			isUpdated = false;
-		}
-		
-		if (partialCustomer.getCustPhoneNo() == 0L) {
-			partialCustomer.setCustPhoneNo(customerPhoneNo);
+		if (partialCustomer.getCust_Addr() == null) {
+			partialCustomer.setCust_Addr(customerAddress);
 			isUpdated = false;
 		}
 
-		if (partialCustomer.getCustName() != null && !partialCustomer.getCustName().equals(customerName)) {
-			partialCustomer.getCustName();
+		if (partialCustomer.getCust_Phone_No() == 0L) {
+			partialCustomer.setCust_Phone_No(customerPhoneNo);
+			isUpdated = false;
+		}
+
+		if (partialCustomer.getCust_Name() != null && !partialCustomer.getCust_Name().equals(customerName)) {
+			partialCustomer.getCust_Name();
 			isUpdated = true;
 		}
 
-		if (partialCustomer.getCustAddr() != null && !partialCustomer.getCustAddr().equals(customerAddress)) {
-			partialCustomer.getCustAddr();
+		if (partialCustomer.getCust_Addr() != null && !partialCustomer.getCust_Addr().equals(customerAddress)) {
+			partialCustomer.getCust_Addr();
 			isUpdated = true;
 		}
 
-		if (customerPhoneNo != partialCustomer.getCustPhoneNo() && partialCustomer.getCustPhoneNo() != 0L) {
-			partialCustomer.getCustPhoneNo();
+		if (customerPhoneNo != partialCustomer.getCust_Phone_No() && partialCustomer.getCust_Phone_No() != 0L) {
+			partialCustomer.getCust_Phone_No();
 			isUpdated = true;
 		}
 
 		if (isUpdated) {
-			int rows = customerRepository.updatePartDetails(id, partialCustomer.getCustName(), partialCustomer.getCustAddr(), partialCustomer.getCustPhoneNo());
+			int rows = customerRepository.updatePartDetails(id, partialCustomer.getCust_Name(),
+					partialCustomer.getCust_Addr(), partialCustomer.getCust_Phone_No());
 			return rows > 0 ? "Customer partially updated successfully." : "Customer not found.";
 		} else {
 			return "Nothing to update.";
@@ -76,14 +77,14 @@ public class CustomerService {
 	}
 
 	private String getExistingName(int id) {
-		return customerRepository.findById(id).map(Customer::getCustName).orElse(null);
+		return customerRepository.findById(id).map(Customer::getCust_Name).orElse(null);
 	}
 
 	private String getExistingAddr(int id) {
-		return customerRepository.findById(id).map(Customer::getCustAddr).orElse(null);
+		return customerRepository.findById(id).map(Customer::getCust_Addr).orElse(null);
 	}
 
 	private long getExistingPhoneNo(int id) {
-		return customerRepository.findById(id).map(Customer::getCustPhoneNo).orElse(null);
+		return customerRepository.findById(id).map(Customer::getCust_Phone_No).orElse(null);
 	}
 }

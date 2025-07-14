@@ -12,8 +12,8 @@ public class CustAddr {
 	@Id
 	private int custAddrId;
 	@OneToOne
-	@JoinColumn(name = "custID", referencedColumnName = "custID")
-	private Customer custId;
+	@JoinColumn(name = "cust_id", referencedColumnName = "cust_id")
+	private Customer cust_id;
 	@Column
 	private int flatNum;
 	@Column
@@ -34,6 +34,28 @@ public class CustAddr {
 	private String state;
 	@Column
 	private int pincode;
+	
+	public CustAddr(int custAddrId, Customer cust_id, int flatNum, int floorNum, String wing, String bldgName,
+			String societyName, String streetName, String area, String city, String state, int pincode) {
+		super();
+		this.custAddrId = custAddrId;
+		this.cust_id = cust_id;
+		this.flatNum = flatNum;
+		this.floorNum = floorNum;
+		this.wing = wing;
+		this.bldgName = bldgName;
+		this.societyName = societyName;
+		this.streetName = streetName;
+		this.area = area;
+		this.city = city;
+		this.state = state;
+		this.pincode = pincode;
+	}
+
+	public CustAddr() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public int getCustAddrId() {
 		return custAddrId;
@@ -43,12 +65,12 @@ public class CustAddr {
 		this.custAddrId = custAddrId;
 	}
 
-	public Customer getCustId() {
-		return custId;
+	public Customer getCust_id() {
+		return cust_id;
 	}
 
-	public void setCustId(Customer custId) {
-		this.custId = custId;
+	public void setCust_id(Customer cust_id) {
+		this.cust_id = cust_id;
 	}
 
 	public int getFlatNum() {
@@ -131,26 +153,6 @@ public class CustAddr {
 		this.pincode = pincode;
 	}
 
-	public CustAddr(int custAddrId, Customer custId, int flatNum, int floorNum, String wing, String bldgName,
-			String societyName, String streetName, String area, String city, String state, int pincode) {
-		super();
-		this.custAddrId = custAddrId;
-		this.custId = custId;
-		this.flatNum = flatNum;
-		this.floorNum = floorNum;
-		this.wing = wing;
-		this.bldgName = bldgName;
-		this.societyName = societyName;
-		this.streetName = streetName;
-		this.area = area;
-		this.city = city;
-		this.state = state;
-		this.pincode = pincode;
-	}
-
-	public CustAddr() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
+	
+	
 }

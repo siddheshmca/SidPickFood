@@ -22,4 +22,9 @@ public class RestaurantService {
         return restaurantRepository.getAllRestaurants();
     }
 	
+	public String deleteRestaurant(int id) {
+		int rows = restaurantRepository.deleteRestaurant(id);
+		return rows > 0 ? "Restaurant Deleted Successfully." : "Restaurant Not Found.";
+	}
+	
 }

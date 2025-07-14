@@ -29,8 +29,8 @@ public class CustomerController {
 
 	@PostMapping
 	public ResponseEntity<String> createCustomer(@RequestBody Customer customer) {
-		customer.setCustID(genId.generateId());
-		System.out.println(customer.getCustID());
+		customer.setCust_id(genId.generateId());
+		System.out.println(customer.getCust_id());
 		customerService.saveCustomer(customer);
 		return ResponseEntity.ok("Done");
 	}

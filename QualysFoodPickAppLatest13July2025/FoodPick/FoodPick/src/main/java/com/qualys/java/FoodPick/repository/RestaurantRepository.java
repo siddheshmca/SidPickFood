@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.yaml.snakeyaml.events.Event.ID;
 
@@ -23,4 +24,9 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, ID> {
 
 	@Query(value = "SELECT * FROM restaurant", nativeQuery = true)
 	List<Restaurant> getAllRestaurants();
+	
+	@Modifying
+	@Transactional
+	@Query(value = "DELETE FROM restaurant WHERE restaurantId = :restaurantId", nativeQuery = true)
+	int deleteRestaurant(@Param("restaurantId") int restaurantId);
 }

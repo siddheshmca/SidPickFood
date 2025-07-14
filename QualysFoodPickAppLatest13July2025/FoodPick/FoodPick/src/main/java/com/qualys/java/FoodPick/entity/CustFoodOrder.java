@@ -18,8 +18,8 @@ public class CustFoodOrder {
 	@JoinColumn(name = "restaurantId", referencedColumnName = "restaurantId")
 	private Restaurant restaurantId;
 	@OneToOne
-	@JoinColumn(name = "custID", referencedColumnName = "custID")
-	private Customer customerId;
+	@JoinColumn(name = "cust_id", referencedColumnName = "cust_id")
+	private Customer cust_id;
 	@Column
 	private LocalDate orderDate;
 	@Column
@@ -27,19 +27,19 @@ public class CustFoodOrder {
 	@Column
 	private double totalPrice;
 	
-	public CustFoodOrder(int orderId, Restaurant restaurantId, Customer customerId, LocalDate orderDate,
+	public CustFoodOrder() {
+		super();
+	}
+
+	public CustFoodOrder(int orderId, Restaurant restaurantId, Customer cust_id, LocalDate orderDate,
 			List<String> orderItems, double totalPrice) {
 		super();
 		this.orderId = orderId;
 		this.restaurantId = restaurantId;
-		this.customerId = customerId;
+		this.cust_id = cust_id;
 		this.orderDate = orderDate;
 		this.orderItems = orderItems;
 		this.totalPrice = totalPrice;
-	}
-
-	public CustFoodOrder() {
-		super();
 	}
 
 	public int getOrderId() {
@@ -58,12 +58,12 @@ public class CustFoodOrder {
 		this.restaurantId = restaurantId;
 	}
 
-	public Customer getCustomerId() {
-		return customerId;
+	public Customer getCust_id() {
+		return cust_id;
 	}
 
-	public void setCustomerId(Customer customerId) {
-		this.customerId = customerId;
+	public void setCust_id(Customer cust_id) {
+		this.cust_id = cust_id;
 	}
 
 	public LocalDate getOrderDate() {
@@ -89,5 +89,6 @@ public class CustFoodOrder {
 	public void setTotalPrice(double totalPrice) {
 		this.totalPrice = totalPrice;
 	}
+	
 	
 }

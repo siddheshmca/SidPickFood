@@ -13,8 +13,8 @@ public class Payment {
 	private int paymentId;
 
 	@OneToOne
-	@JoinColumn(name = "custID", referencedColumnName = "custID")
-	private Customer customerId;
+	@JoinColumn(name = "cust_id", referencedColumnName = "cust_id")
+	private Customer cust_id;
 
 	@OneToOne
 	@JoinColumn(name = "orderId", referencedColumnName = "orderId")
@@ -27,18 +27,17 @@ public class Payment {
 	@Column
 	private double amount;
 
-	public Payment(int paymentId, Customer customerId, CustFoodOrder orderId, Restaurant restaurantId, double amount) {
+	public Payment() {
+		super();
+	}
+
+	public Payment(int paymentId, Customer cust_id, CustFoodOrder orderId, Restaurant restaurantId, double amount) {
 		super();
 		this.paymentId = paymentId;
-		this.customerId = customerId;
+		this.cust_id = cust_id;
 		this.orderId = orderId;
 		this.restaurantId = restaurantId;
 		this.amount = amount;
-	}
-
-	public Payment() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public int getPaymentId() {
@@ -49,12 +48,12 @@ public class Payment {
 		this.paymentId = paymentId;
 	}
 
-	public Customer getCustomerId() {
-		return customerId;
+	public Customer getCust_id() {
+		return cust_id;
 	}
 
-	public void setCustomerId(Customer customerId) {
-		this.customerId = customerId;
+	public void setCust_id(Customer cust_id) {
+		this.cust_id = cust_id;
 	}
 
 	public CustFoodOrder getOrderId() {
