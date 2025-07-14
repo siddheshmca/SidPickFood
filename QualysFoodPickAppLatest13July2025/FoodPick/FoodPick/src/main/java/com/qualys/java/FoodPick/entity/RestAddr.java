@@ -10,121 +10,32 @@ import jakarta.persistence.OneToOne;
 public class RestAddr {
 
 	@Id
-	private int restAddId;
+	@Column(name = "rest_addr_id")
+	private int rest_addr_id;
 
 	@OneToOne
 	@JoinColumn(name = "rest_id", referencedColumnName = "rest_id")
 	private Restaurant rest_id;
 
-	@Column
-	private int shopNo;
+	@Column(name = "rest_shop_no")
+	private int rest_shop_no;
 
-	@Column
-	private int streetName;
+	@Column(name = "rest_street_name")
+	private int rest_street_name;
 
-	@Column
-	private int floorNum;
+	@Column(name = "rest_floor_num")
+	private int rest_floor_num;
 
-	@Column
-	private String area;
+	@Column(name = "rest_area")
+	private String rest_area;
 
-	@Column
-	private String city;
+	@Column(name = "rest_city")
+	private String rest_city;
 
-	@Column
-	private String state;
+	@Column(name = "rest_state")
+	private String rest_state;
 
-	@Column
-	private int pincode;
-
-	public RestAddr(int restAddId, Restaurant rest_id, int shopNo, int streetName, int floorNum, String area,
-			String city, String state, int pincode) {
-		super();
-		this.restAddId = restAddId;
-		this.rest_id = rest_id;
-		this.shopNo = shopNo;
-		this.streetName = streetName;
-		this.floorNum = floorNum;
-		this.area = area;
-		this.city = city;
-		this.state = state;
-		this.pincode = pincode;
-	}
-
-	public RestAddr() {
-		super();
-	}
-
-	public int getRestAddId() {
-		return restAddId;
-	}
-
-	public void setRestAddId(int restAddId) {
-		this.restAddId = restAddId;
-	}
-
-	public Restaurant getRest_id() {
-		return rest_id;
-	}
-
-	public void setRest_id(Restaurant rest_id) {
-		this.rest_id = rest_id;
-	}
-
-	public int getShopNo() {
-		return shopNo;
-	}
-
-	public void setShopNo(int shopNo) {
-		this.shopNo = shopNo;
-	}
-
-	public int getStreetName() {
-		return streetName;
-	}
-
-	public void setStreetName(int streetName) {
-		this.streetName = streetName;
-	}
-
-	public int getFloorNum() {
-		return floorNum;
-	}
-
-	public void setFloorNum(int floorNum) {
-		this.floorNum = floorNum;
-	}
-
-	public String getArea() {
-		return area;
-	}
-
-	public void setArea(String area) {
-		this.area = area;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
-	public int getPincode() {
-		return pincode;
-	}
-
-	public void setPincode(int pincode) {
-		this.pincode = pincode;
-	}
+	@Column(name = "rest_pin_code")
+	private int rest_pin_code;
 
 }
