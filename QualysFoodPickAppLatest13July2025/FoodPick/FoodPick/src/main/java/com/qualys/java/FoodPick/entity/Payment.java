@@ -21,8 +21,8 @@ public class Payment {
 	private CustFoodOrder orderId;
 
 	@OneToOne
-	@JoinColumn(name = "restaurantId", referencedColumnName = "restaurantId")
-	private Restaurant restaurantId;
+	@JoinColumn(name = "rest_id", referencedColumnName = "rest_id")
+	private Restaurant rest_id;
 
 	@Column
 	private double amount;
@@ -31,12 +31,12 @@ public class Payment {
 		super();
 	}
 
-	public Payment(int paymentId, Customer cust_id, CustFoodOrder orderId, Restaurant restaurantId, double amount) {
+	public Payment(int paymentId, Customer cust_id, CustFoodOrder orderId, Restaurant rest_id, double amount) {
 		super();
 		this.paymentId = paymentId;
 		this.cust_id = cust_id;
 		this.orderId = orderId;
-		this.restaurantId = restaurantId;
+		this.rest_id = rest_id;
 		this.amount = amount;
 	}
 
@@ -64,12 +64,12 @@ public class Payment {
 		this.orderId = orderId;
 	}
 
-	public Restaurant getRestaurantId() {
-		return restaurantId;
+	public Restaurant getRest_id() {
+		return rest_id;
 	}
 
-	public void setRestaurantId(Restaurant restaurantId) {
-		this.restaurantId = restaurantId;
+	public void setRest_id(Restaurant rest_id) {
+		this.rest_id = rest_id;
 	}
 
 	public double getAmount() {

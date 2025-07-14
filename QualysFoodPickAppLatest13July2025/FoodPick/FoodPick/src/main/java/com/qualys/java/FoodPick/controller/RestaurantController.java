@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,22 +29,34 @@ public class RestaurantController {
 
 	@PostMapping
 	public ResponseEntity<String> createCustomer(@RequestBody Restaurant restaurant) {
-		restaurant.setRestaurantId(genId.generateId());
-		System.out.println(restaurant.getRestaurantId());
+		restaurant.setRest_id(genId.generateId());
+		System.out.println(restaurant.getRest_id());
 		restaurantService.createNewRestaurant(restaurant);
 		return ResponseEntity.ok("Done");
 	}
-	
+
 	@GetMapping
     public ResponseEntity<List<Restaurant>> getAllRestaurants() {
         List<Restaurant> restaurants = restaurantService.getAllRestaurants();
         return ResponseEntity.ok(restaurants);
     }
+
+	@PatchMapping("/{id}")
+	public ResponseEntity<String> updateRestaurant(@PathVariable int id, @RequestBody Restaurant restaurant) {
+		String message = restaurantService.updateRestaurantDetails(id, restaurant);
+		if (message.contains("successfully")) {
+			return ResponseEntity.ok(message);
+		} else if (message.contains("Nothing")) {
+			return ResponseEntity.badRequest().body(message);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deleteCustomer(@PathVariable int id) {
 		String message = restaurantService.deleteRestaurant(id);
-		if (message.contains("successfully")) {
+		if (message.contains("Successfully")) {
 			return ResponseEntity.ok(message);
 		} else {
 			return ResponseEntity.notFound().build();

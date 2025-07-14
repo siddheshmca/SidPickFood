@@ -1,11 +1,6 @@
 package com.qualys.java.FoodPick.entity;
 
-import java.util.List;
-
-import com.qualys.java.FoodPick.converter.StringListConverter;
-
 import jakarta.persistence.Column;
-import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
@@ -13,69 +8,80 @@ import jakarta.persistence.Id;
 public class Restaurant {
 
 	@Id
-	private int restaurantId;
-	@Column
-	private String restaurantName;
-	@Column
-	private String restaurantLocation;
-	@Column
-	private String restaurantCategory;
-	@Column
-	@Convert(converter = StringListConverter.class)
-	private List<String> restaurantMenu;
-	
-	public Restaurant(int restaurantId, String restaurantName, String restaurantLocation, String restaurantCategory,
-			List<String> restaurantMenu) {
+	@Column(name = "rest_id")
+	private int rest_id;
+	@Column(name = "rest_name")
+	private String rest_name;
+	@Column(name = "rest_location")
+	private String rest_location;
+	@Column(name = "rest_category")
+	private String rest_category;
+	@Column(name = "rest_menu")
+	private String rest_menu;
+	@Column(name = "rest_phone_no")
+	private long rest_phone_no;
+
+	public Restaurant(int rest_id, String rest_name, String rest_location, String rest_category, String rest_menu,
+			long rest_phone_no) {
 		super();
-		this.restaurantId = restaurantId;
-		this.restaurantName = restaurantName;
-		this.restaurantLocation = restaurantLocation;
-		this.restaurantCategory = restaurantCategory;
-		this.restaurantMenu = restaurantMenu;
+		this.rest_id = rest_id;
+		this.rest_name = rest_name;
+		this.rest_location = rest_location;
+		this.rest_category = rest_category;
+		this.rest_menu = rest_menu;
+		this.rest_phone_no = rest_phone_no;
 	}
 
 	public Restaurant() {
 		super();
 	}
 
-	public int getRestaurantId() {
-		return restaurantId;
+	public int getRest_id() {
+		return rest_id;
 	}
 
-	public void setRestaurantId(int restaurantId) {
-		this.restaurantId = restaurantId;
+	public void setRest_id(int rest_id) {
+		this.rest_id = rest_id;
 	}
 
-	public String getRestaurantName() {
-		return restaurantName;
+	public String getRest_name() {
+		return rest_name;
 	}
 
-	public void setRestaurantName(String restaurantName) {
-		this.restaurantName = restaurantName;
+	public void setRest_name(String rest_name) {
+		this.rest_name = rest_name;
 	}
 
-	public String getRestaurantLocation() {
-		return restaurantLocation;
+	public String getRest_location() {
+		return rest_location;
 	}
 
-	public void setRestaurantLocation(String restaurantLocation) {
-		this.restaurantLocation = restaurantLocation;
+	public void setRest_location(String rest_location) {
+		this.rest_location = rest_location;
 	}
 
-	public String getRestaurantCategory() {
-		return restaurantCategory;
+	public String getRest_category() {
+		return rest_category;
 	}
 
-	public void setRestaurantCategory(String restaurantCategory) {
-		this.restaurantCategory = restaurantCategory;
+	public void setRest_category(String rest_category) {
+		this.rest_category = rest_category;
 	}
 
-	public List<String> getRestaurantMenu() {
-		return restaurantMenu;
+	public String getRest_menu() {
+		return rest_menu;
 	}
 
-	public void setRestaurantMenu(List<String> restaurantMenu) {
-		this.restaurantMenu = restaurantMenu;
+	public void setRest_menu(String rest_menu) {
+		this.rest_menu = rest_menu;
+	}
+
+	public long getRest_phone_no() {
+		return rest_phone_no;
+	}
+
+	public void setRest_phone_no(long rest_phone_no) {
+		this.rest_phone_no = rest_phone_no;
 	}
 
 }

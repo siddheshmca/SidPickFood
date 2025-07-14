@@ -12,19 +12,19 @@ public class Menu {
 	@Id
 	private int menuId;
 	@OneToOne
-	@JoinColumn(name = "restaurantId", referencedColumnName = "restaurantId")
-	private Restaurant restId;
+	@JoinColumn(name = "rest_id", referencedColumnName = "rest_id")
+	private Restaurant rest_id;
 	@Column
 	private String menuItems;
 	@Column
 	private double itemPrice;
 	@Column
 	private String cuisine;
-	
-	public Menu(int menuId, Restaurant restId, String menuItems, double itemPrice, String cuisine) {
+
+	public Menu(int menuId, Restaurant rest_id, String menuItems, double itemPrice, String cuisine) {
 		super();
 		this.menuId = menuId;
-		this.restId = restId;
+		this.rest_id = rest_id;
 		this.menuItems = menuItems;
 		this.itemPrice = itemPrice;
 		this.cuisine = cuisine;
@@ -42,12 +42,12 @@ public class Menu {
 		this.menuId = menuId;
 	}
 
-	public Restaurant getRestId() {
-		return restId;
+	public Restaurant getRest_id() {
+		return rest_id;
 	}
 
-	public void setRestId(Restaurant restId) {
-		this.restId = restId;
+	public void setRest_id(Restaurant rest_id) {
+		this.rest_id = rest_id;
 	}
 
 	public String getMenuItems() {
@@ -73,5 +73,5 @@ public class Menu {
 	public void setCuisine(String cuisine) {
 		this.cuisine = cuisine;
 	}
-	
+
 }

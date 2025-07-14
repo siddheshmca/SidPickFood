@@ -11,12 +11,12 @@ import jakarta.persistence.OneToOne;
 
 @Entity
 public class CustFoodOrder {
-	
+
 	@Id
 	private int orderId;
 	@OneToOne
-	@JoinColumn(name = "restaurantId", referencedColumnName = "restaurantId")
-	private Restaurant restaurantId;
+	@JoinColumn(name = "rest_id", referencedColumnName = "rest_id")
+	private Restaurant rest_id;
 	@OneToOne
 	@JoinColumn(name = "cust_id", referencedColumnName = "cust_id")
 	private Customer cust_id;
@@ -26,20 +26,20 @@ public class CustFoodOrder {
 	private List<String> orderItems;
 	@Column
 	private double totalPrice;
-	
-	public CustFoodOrder() {
-		super();
-	}
 
-	public CustFoodOrder(int orderId, Restaurant restaurantId, Customer cust_id, LocalDate orderDate,
+	public CustFoodOrder(int orderId, Restaurant rest_id, Customer cust_id, LocalDate orderDate,
 			List<String> orderItems, double totalPrice) {
 		super();
 		this.orderId = orderId;
-		this.restaurantId = restaurantId;
+		this.rest_id = rest_id;
 		this.cust_id = cust_id;
 		this.orderDate = orderDate;
 		this.orderItems = orderItems;
 		this.totalPrice = totalPrice;
+	}
+
+	public CustFoodOrder() {
+		super();
 	}
 
 	public int getOrderId() {
@@ -50,12 +50,12 @@ public class CustFoodOrder {
 		this.orderId = orderId;
 	}
 
-	public Restaurant getRestaurantId() {
-		return restaurantId;
+	public Restaurant getRest_id() {
+		return rest_id;
 	}
 
-	public void setRestaurantId(Restaurant restaurantId) {
-		this.restaurantId = restaurantId;
+	public void setRest_id(Restaurant rest_id) {
+		this.rest_id = rest_id;
 	}
 
 	public Customer getCust_id() {
@@ -89,6 +89,5 @@ public class CustFoodOrder {
 	public void setTotalPrice(double totalPrice) {
 		this.totalPrice = totalPrice;
 	}
-	
-	
+
 }

@@ -11,10 +11,10 @@ public class RestAddr {
 
 	@Id
 	private int restAddId;
-	
+
 	@OneToOne
-	@JoinColumn(name = "restaurantId", referencedColumnName = "restaurantId")
-	private Restaurant restaurantId;
+	@JoinColumn(name = "rest_id", referencedColumnName = "rest_id")
+	private Restaurant rest_id;
 
 	@Column
 	private int shopNo;
@@ -27,20 +27,21 @@ public class RestAddr {
 
 	@Column
 	private String area;
-	
+
 	@Column
 	private String city;
-	
+
 	@Column
 	private String state;
-	
+
 	@Column
 	private int pincode;
 
-	public RestAddr(int restAddId, int shopNo, int streetName, int floorNum, String area, String city, String state,
-			int pincode) {
+	public RestAddr(int restAddId, Restaurant rest_id, int shopNo, int streetName, int floorNum, String area,
+			String city, String state, int pincode) {
 		super();
 		this.restAddId = restAddId;
+		this.rest_id = rest_id;
 		this.shopNo = shopNo;
 		this.streetName = streetName;
 		this.floorNum = floorNum;
@@ -60,6 +61,14 @@ public class RestAddr {
 
 	public void setRestAddId(int restAddId) {
 		this.restAddId = restAddId;
+	}
+
+	public Restaurant getRest_id() {
+		return rest_id;
+	}
+
+	public void setRest_id(Restaurant rest_id) {
+		this.rest_id = rest_id;
 	}
 
 	public int getShopNo() {
@@ -117,5 +126,5 @@ public class RestAddr {
 	public void setPincode(int pincode) {
 		this.pincode = pincode;
 	}
-	
+
 }
