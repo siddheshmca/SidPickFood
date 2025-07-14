@@ -10,14 +10,19 @@ public class Restaurant {
 	@Id
 	@Column(name = "rest_id")
 	private int rest_id;
+	
 	@Column(name = "rest_name")
 	private String rest_name;
+	
 	@Column(name = "rest_location")
 	private String rest_location;
+	
 	@Column(name = "rest_category")
 	private String rest_category;
+	
 	@Column(name = "rest_menu")
 	private String rest_menu;
+	
 	@Column(name = "rest_phone_no")
 	private long rest_phone_no;
 

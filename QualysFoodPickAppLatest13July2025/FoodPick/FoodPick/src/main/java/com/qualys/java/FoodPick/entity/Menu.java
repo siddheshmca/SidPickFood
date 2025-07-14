@@ -10,36 +10,29 @@ import jakarta.persistence.OneToOne;
 public class Menu {
 
 	@Id
-	private int menuId;
+	@Column(name = "menu_id")
+	private int menu_id;
+
 	@OneToOne
 	@JoinColumn(name = "rest_id", referencedColumnName = "rest_id")
 	private Restaurant rest_id;
-	@Column
-	private String menuItems;
-	@Column
-	private double itemPrice;
-	@Column
-	private String cuisine;
 
-	public Menu(int menuId, Restaurant rest_id, String menuItems, double itemPrice, String cuisine) {
-		super();
-		this.menuId = menuId;
-		this.rest_id = rest_id;
-		this.menuItems = menuItems;
-		this.itemPrice = itemPrice;
-		this.cuisine = cuisine;
-	}
+	@Column(name = "menu_items")
+	private String menu_items;
+
+	@Column(name = "menu_item_price")
+	private double menu_item_price;
 
 	public Menu() {
 		super();
 	}
 
-	public int getMenuId() {
-		return menuId;
+	public int getMenu_id() {
+		return menu_id;
 	}
 
-	public void setMenuId(int menuId) {
-		this.menuId = menuId;
+	public void setMenu_id(int menu_id) {
+		this.menu_id = menu_id;
 	}
 
 	public Restaurant getRest_id() {
@@ -50,28 +43,28 @@ public class Menu {
 		this.rest_id = rest_id;
 	}
 
-	public String getMenuItems() {
-		return menuItems;
+	public String getMenu_items() {
+		return menu_items;
 	}
 
-	public void setMenuItems(String menuItems) {
-		this.menuItems = menuItems;
+	public void setMenu_items(String menu_items) {
+		this.menu_items = menu_items;
 	}
 
-	public double getItemPrice() {
-		return itemPrice;
+	public double getMenu_item_price() {
+		return menu_item_price;
 	}
 
-	public void setItemPrice(double itemPrice) {
-		this.itemPrice = itemPrice;
+	public void setMenu_item_price(double menu_item_price) {
+		this.menu_item_price = menu_item_price;
 	}
 
-	public String getCuisine() {
-		return cuisine;
-	}
-
-	public void setCuisine(String cuisine) {
-		this.cuisine = cuisine;
+	public Menu(int menu_id, Restaurant rest_id, String menu_items, double menu_item_price) {
+		super();
+		this.menu_id = menu_id;
+		this.rest_id = rest_id;
+		this.menu_items = menu_items;
+		this.menu_item_price = menu_item_price;
 	}
 
 }

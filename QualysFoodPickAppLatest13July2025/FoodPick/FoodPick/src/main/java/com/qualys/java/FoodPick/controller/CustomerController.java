@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qualys.java.FoodPick.IdGenerator.GenerateIdImpl;
+import com.qualys.java.FoodPick.entity.CustAddr;
 import com.qualys.java.FoodPick.entity.Customer;
 import com.qualys.java.FoodPick.service.CustomerService;
 
@@ -26,6 +27,8 @@ public class CustomerController {
 
 	@Autowired
 	private CustomerService customerService;
+	
+	
 
 	@PostMapping
 	public ResponseEntity<String> createCustomer(@RequestBody Customer customer) {

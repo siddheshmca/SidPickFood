@@ -10,42 +10,52 @@ import jakarta.persistence.OneToOne;
 public class Payment {
 
 	@Id
-	private int paymentId;
+	@Column(name = "payment_id")
+	private int payment_id;
 
 	@OneToOne
 	@JoinColumn(name = "cust_id", referencedColumnName = "cust_id")
 	private Customer cust_id;
 
 	@OneToOne
-	@JoinColumn(name = "orderId", referencedColumnName = "orderId")
+	@JoinColumn(name = "cf_order_id", referencedColumnName = "cf_order_id")
 	private CustFoodOrder orderId;
 
 	@OneToOne
 	@JoinColumn(name = "rest_id", referencedColumnName = "rest_id")
 	private Restaurant rest_id;
 
-	@Column
-	private double amount;
+	@Column(name = "payment_total_amount")
+	private double payment_total_amount;
+
+	@Column(name = "payment_mode")
+	private String payment_mode;
+
+	@Column(name = "payment_status")
+	private String payment_status;
 
 	public Payment() {
 		super();
 	}
 
-	public Payment(int paymentId, Customer cust_id, CustFoodOrder orderId, Restaurant rest_id, double amount) {
+	public Payment(int payment_id, Customer cust_id, CustFoodOrder orderId, Restaurant rest_id,
+			double payment_total_amount, String payment_mode, String payment_status) {
 		super();
-		this.paymentId = paymentId;
+		this.payment_id = payment_id;
 		this.cust_id = cust_id;
 		this.orderId = orderId;
 		this.rest_id = rest_id;
-		this.amount = amount;
+		this.payment_total_amount = payment_total_amount;
+		this.payment_mode = payment_mode;
+		this.payment_status = payment_status;
 	}
 
-	public int getPaymentId() {
-		return paymentId;
+	public int getPayment_id() {
+		return payment_id;
 	}
 
-	public void setPaymentId(int paymentId) {
-		this.paymentId = paymentId;
+	public void setPayment_id(int payment_id) {
+		this.payment_id = payment_id;
 	}
 
 	public Customer getCust_id() {
@@ -72,12 +82,28 @@ public class Payment {
 		this.rest_id = rest_id;
 	}
 
-	public double getAmount() {
-		return amount;
+	public double getPayment_total_amount() {
+		return payment_total_amount;
 	}
 
-	public void setAmount(double amount) {
-		this.amount = amount;
+	public void setPayment_total_amount(double payment_total_amount) {
+		this.payment_total_amount = payment_total_amount;
+	}
+
+	public String getPayment_mode() {
+		return payment_mode;
+	}
+
+	public void setPayment_mode(String payment_mode) {
+		this.payment_mode = payment_mode;
+	}
+
+	public String getPayment_status() {
+		return payment_status;
+	}
+
+	public void setPayment_status(String payment_status) {
+		this.payment_status = payment_status;
 	}
 
 }
