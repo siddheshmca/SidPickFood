@@ -5,15 +5,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.qualys.java.FoodPick.DTO.RestaurantDTO;
 import com.qualys.java.FoodPick.IdGenerator.GenerateIdImpl;
+import com.qualys.java.FoodPick.entity.RestAddr;
 import com.qualys.java.FoodPick.entity.Restaurant;
 import com.qualys.java.FoodPick.service.RestaurantService;
 
@@ -28,21 +29,28 @@ public class RestaurantController {
 	private RestaurantService restaurantService;
 
 	@PostMapping
-	public ResponseEntity<String> createCustomer(@RequestBody Restaurant restaurant) {
+	public ResponseEntity<String> createRestaurant(@RequestBody RestaurantDTO restaurant) {
 		restaurant.setRest_id(genId.generateId());
-		System.out.println(restaurant.getRest_id());
 		restaurantService.createNewRestaurant(restaurant);
+		restaurant.setRest_addr_id(genId.generateId());
+		restaurantService.saveRestaurantAddress(restaurant);
 		return ResponseEntity.ok("Done");
 	}
 
-	@GetMapping
-    public ResponseEntity<List<Restaurant>> getAllRestaurants() {
-        List<Restaurant> restaurants = restaurantService.getAllRestaurants();
-        return ResponseEntity.ok(restaurants);
-    }
+	@RequestMapping(value = "/viewRest", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<List<Restaurant>> getAllRestaurants() {
+		List<Restaurant> restaurants = restaurantService.getAllRestaurants();
+		return ResponseEntity.ok(restaurants);
+	}
 
-	@PatchMapping("/{id}")
-	public ResponseEntity<String> updateRestaurant(@PathVariable int id, @RequestBody Restaurant restaurant) {
+	@RequestMapping(value = "/restAddrDetails", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<List<RestAddr>> getRestAddress() {
+		List<RestAddr> restaurantAddr = restaurantService.getRestaurantAddress();
+		return ResponseEntity.ok(restaurantAddr);
+	}
+
+	@RequestMapping(value = "restChange/{id}", method = RequestMethod.PATCH, consumes = "application/json")
+	public ResponseEntity<String> updateRestaurant(@PathVariable int id, @RequestBody RestaurantDTO restaurant) {
 		String message = restaurantService.updateRestaurantDetails(id, restaurant);
 		if (message.contains("successfully")) {
 			return ResponseEntity.ok(message);
@@ -52,12 +60,25 @@ public class RestaurantController {
 			return ResponseEntity.notFound().build();
 		}
 	}
-	
+
+	@RequestMapping(value = "restAddrChange/{id}", method = RequestMethod.PATCH, consumes = "application/json")
+	public ResponseEntity<String> updateRestaurantAddress(@PathVariable int id, @RequestBody RestaurantDTO restaurant) {
+		String message = restaurantService.updateRestaurantAddress(id, restaurant);
+		if (message.contains("successfully")) {
+			return ResponseEntity.ok(message);
+		} else if (message.contains("Nothing")) {
+			return ResponseEntity.badRequest().body(message);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+	}
+
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> deleteCustomer(@PathVariable int id) {
-		String message = restaurantService.deleteRestaurant(id);
-		if (message.contains("Successfully")) {
-			return ResponseEntity.ok(message);
+		String restAddrDel = restaurantService.deleteRestaurantAddr(id);
+		String restDel = restaurantService.deleteRestaurant(id);
+		if (restAddrDel.contains("Successfully") && restDel.contains("Successfully")) {
+			return ResponseEntity.ok(restAddrDel + restDel);
 		} else {
 			return ResponseEntity.notFound().build();
 		}

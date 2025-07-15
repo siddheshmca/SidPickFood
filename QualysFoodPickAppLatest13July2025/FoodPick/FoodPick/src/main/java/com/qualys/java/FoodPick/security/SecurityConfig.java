@@ -13,8 +13,10 @@ public class SecurityConfig {
 		https.csrf(csrf -> csrf.disable()).headers(headers -> headers.frameOptions().disable()).authorizeHttpRequests(
 				auth -> auth.requestMatchers("/h2-console/**", "/welcome/**", "/foodpick/customers",
 						"/foodpick/customers/**", "/foodpick/restaurant", "/foodpick/restaurant/**", "/foodpick/menu",
-						"/foodpick/menu/**", "foodpick/customers/detChng/**", "foodpick/customers/addrChng/**")
-						.permitAll().anyRequest().authenticated());
+						"/foodpick/menu/**", "foodpick/customers/detChng/**", "foodpick/customers/addrChng/**",
+						"foodpick/restaurant/viewRest/**", "foodpick/restaurant/restAddrDetails/**",
+						"foodpick/restaurant/restChange/**", "foodpick/restaurant/restAddrChange/**").permitAll()
+						.anyRequest().authenticated());
 		return https.build();
 	}
 }
