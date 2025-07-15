@@ -1,14 +1,14 @@
-INSERT INTO customer (cust_id, cust_Name, cust_Addr, cust_Phone_No) VALUES 
-(100001, 'Virat Kohli', 'Worli Mumbai 400024',6578965789),
-(100002, 'Rohit Sharma', 'Worli Mumbai 400024',7865478654),
-(100003, 'Shreyas Iyer', 'Worli Mumbai 400024',5467154671),
-(100004, 'Arjun Tendulkar', 'Bandra Mumbai 400030',9432694326),
-(100005, 'Sunil Gavaskar', 'Juhu Mumbai 400054',6785467854),
-(100006, 'Dilip Vengsarkar', 'Lower Parel Mumbai 400076',4897648976),
-(100007, 'Ravi Shastri', 'Nariman Point Mumbai 400032',8546785467),
-(100008, 'Sandeep Patil', 'Dadar Mumbai 400028',9345693456),
-(100009, 'Pravin Amre', 'Dadar Mumbai 400028',8342183421),
-(100010, 'Ajinkya Rahane', 'Dadar Mumbai 400028',9346793467);
+INSERT INTO customer (cust_id, cust_Name, cust_email, cust_Phone_No) VALUES 
+(100001, 'Virat Kohli', 'virat@gmail.com',6578965789),
+(100002, 'Rohit Sharma', 'rohit@gmail.com',7865478654),
+(100003, 'Shreyas Iyer', 'shreyas@gmail.com',5467154671),
+(100004, 'Arjun Tendulkar', 'arjun@gmail.com',9432694326),
+(100005, 'Sunil Gavaskar', 'sunny@gmail.com',6785467854),
+(100006, 'Dilip Vengsarkar', 'dilip@gmail.com',4897648976),
+(100007, 'Ravi Shastri', 'ravi@gmail.com',8546785467),
+(100008, 'Sandeep Patil', 'sandeep@gmail.com',9345693456),
+(100009, 'Pravin Amre', 'pravin@gmail.com',8342183421),
+(100010, 'Ajinkya Rahane', 'ajju@gmail.com',9346793467);
 
 
 INSERT INTO restaurant (rest_id, rest_name, rest_location, rest_category, rest_menu, rest_phone_no) VALUES 
