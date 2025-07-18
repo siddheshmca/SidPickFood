@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.yaml.snakeyaml.events.Event.ID;
 
+import com.qualys.java.FoodPick.entity.Menu;
 import com.qualys.java.FoodPick.entity.Restaurant;
 
 import jakarta.transaction.Transactional;
@@ -19,19 +20,18 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, ID> {
 
 	@Modifying
 	@Transactional
-	@Query(value = "INSERT INTO restaurant (rest_id, rest_name, rest_location, rest_category, rest_menu, rest_phone_no) VALUES (?1, ?2, ?3, ?4, ?5, ?6)", nativeQuery = true)
-	void createNewRestaurant(int rest_id, String rest_name, String rest_location, String rest_category,
-			String rest_menu, long rest_phone_no);
+	@Query(value = "INSERT INTO restaurant (rest_id, rest_name, rest_location,  rest_phone_no) VALUES (?1, ?2, ?3, ?4)", nativeQuery = true)
+	void createNewRestaurant(int rest_id, String rest_name, String rest_location, long rest_phone_no);
 
-	@Query(value = "SELECT * FROM restaurant", nativeQuery = true)
-	List<Restaurant> getAllRestaurants();
+	@Query(value = "SELECT * FROM restaurant  WHERE rest_id = :rest_id", nativeQuery = true)
+	List<Restaurant> getAllRestaurants(@Param("rest_id") int rest_id);
 
 	@Modifying
 	@Transactional
-	@Query(value = "UPDATE restaurant SET rest_name = :rest_name, rest_location = :rest_location, rest_category= :rest_category, rest_menu=:rest_menu, rest_phone_no = :rest_phone_no  WHERE rest_id = :rest_id", nativeQuery = true)
+	@Query(value = "UPDATE restaurant SET rest_name = :rest_name, rest_location = :rest_location, rest_menu=:rest_menu, rest_phone_no = :rest_phone_no  WHERE rest_id = :rest_id", nativeQuery = true)
 	int updateRestaurantDetails(@Param("rest_id") int rest_id, @Param("rest_name") String rest_name,
-			@Param("rest_location") String rest_location, @Param("rest_category") String rest_category,
-			@Param("rest_menu") String rest_menu, @Param("rest_phone_no") long rest_phone_no);
+			@Param("rest_location") String rest_location, @Param("rest_menu") List<Menu> rest_menu,
+			@Param("rest_phone_no") long rest_phone_no);
 
 	@Modifying
 	@Transactional

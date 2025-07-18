@@ -15,7 +15,8 @@ public class SecurityConfig {
 						"/foodpick/customers/**", "/foodpick/restaurant", "/foodpick/restaurant/**", "/foodpick/menu",
 						"/foodpick/menu/**", "foodpick/customers/detChng/**", "foodpick/customers/addrChng/**",
 						"foodpick/restaurant/viewRest/**", "foodpick/restaurant/restAddrDetails/**",
-						"foodpick/restaurant/restChange/**", "foodpick/restaurant/restAddrChange/**").permitAll()
+						"foodpick/restaurant/restChange/**", "foodpick/restaurant/restAddrChange/**",
+						"foodpick/restaurant/createMenu/**", "foodpick/restaurant/menuChange/**").permitAll()
 						.anyRequest().authenticated());
 		return https.build();
 	}

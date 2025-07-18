@@ -8,7 +8,6 @@ CREATE TABLE restaurant (
     rest_id INT PRIMARY KEY,
     rest_name VARCHAR(100),
     rest_location VARCHAR(255),
-    rest_category VARCHAR(255),
     rest_menu VARCHAR(255),
     rest_phone_no BIGINT);
 
@@ -54,6 +53,7 @@ CREATE TABLE cust_food_order (
 	,cf_order_quantity DOUBLE
 	,cf_order_amount DOUBLE
 	,cf_order_status VARCHAR(50)
+	,cf_order_delivery_location VARCHAR(255)
 	,CONSTRAINT fk_order_restaurant FOREIGN KEY (rest_id) REFERENCES restaurant(rest_id)
 	,CONSTRAINT fk_order_customer FOREIGN KEY (cust_id) REFERENCES customer(cust_id)
 	,CONSTRAINT fk_order_customer_address FOREIGN KEY (cust_addr_id) REFERENCES cust_addr(cust_addr_id));
@@ -70,10 +70,11 @@ CREATE TABLE payment (
 	,CONSTRAINT fk_payment_order FOREIGN KEY (cf_order_id) REFERENCES cust_food_order(cf_order_id)
 	,CONSTRAINT fk_payment_restaurant FOREIGN KEY (rest_id) REFERENCES restaurant(rest_id));
 
-
 CREATE TABLE menu (
-	menu_id INT PRIMARY KEY
-	,rest_id INT
-	,menu_items VARCHAR(255)
-	,menu_item_price DOUBLE
-	,CONSTRAINT fk_menu_restaurant FOREIGN KEY (rest_id) REFERENCES restaurant(rest_id));
+    item_id INT PRIMARY KEY,
+    item_name VARCHAR(255) NOT NULL,
+    item_price DOUBLE NOT NULL,
+    rest_id INT,
+    CONSTRAINT fk_restaurant
+        FOREIGN KEY (rest_id)
+        REFERENCES restaurant(rest_id));

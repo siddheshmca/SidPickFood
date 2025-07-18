@@ -1,8 +1,12 @@
 package com.qualys.java.FoodPick.entity;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Restaurant {
@@ -10,30 +14,26 @@ public class Restaurant {
 	@Id
 	@Column(name = "rest_id")
 	private int rest_id;
-	
+
 	@Column(name = "rest_name")
 	private String rest_name;
-	
+
 	@Column(name = "rest_location")
 	private String rest_location;
-	
-	@Column(name = "rest_category")
-	private String rest_category;
-	
-	@Column(name = "rest_menu")
-	private String rest_menu;
-	
+
+	@OneToMany(mappedBy = "rest_id", cascade = CascadeType.ALL, orphanRemoval = true)
+	@Column(name = "menu_items")
+	private List<Menu> menu_items;
+
 	@Column(name = "rest_phone_no")
 	private long rest_phone_no;
 
-	public Restaurant(int rest_id, String rest_name, String rest_location, String rest_category, String rest_menu,
-			long rest_phone_no) {
+	public Restaurant(int rest_id, String rest_name, String rest_location, List<Menu> menu_items, long rest_phone_no) {
 		super();
 		this.rest_id = rest_id;
 		this.rest_name = rest_name;
 		this.rest_location = rest_location;
-		this.rest_category = rest_category;
-		this.rest_menu = rest_menu;
+		this.menu_items = menu_items;
 		this.rest_phone_no = rest_phone_no;
 	}
 
@@ -65,20 +65,12 @@ public class Restaurant {
 		this.rest_location = rest_location;
 	}
 
-	public String getRest_category() {
-		return rest_category;
+	public List<Menu> getMenu_items() {
+		return menu_items;
 	}
 
-	public void setRest_category(String rest_category) {
-		this.rest_category = rest_category;
-	}
-
-	public String getRest_menu() {
-		return rest_menu;
-	}
-
-	public void setRest_menu(String rest_menu) {
-		this.rest_menu = rest_menu;
+	public void setMenu_items(List<Menu> menu_items) {
+		this.menu_items = menu_items;
 	}
 
 	public long getRest_phone_no() {

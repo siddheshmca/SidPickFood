@@ -48,9 +48,13 @@ public class CustFoodOrder {
 	@Column(name = "cf_order_status")
 	private String cf_order_status;
 
+	@Column(name = "cf_order_delivery_location")
+	private String cf_order_delivery_location;
+
 	public CustFoodOrder(int cf_order_id, Restaurant rest_id, Customer cust_id, long cust_Phone_No,
 			CustAddr cust_addr_id, LocalDateTime cf_order_date, String cf_order_items, double cf_price_items,
-			double cf_order_quantity, double cf_order_amount, String cf_order_status) {
+			double cf_order_quantity, double cf_order_amount, String cf_order_status,
+			String cf_order_delivery_location) {
 		super();
 		this.cf_order_id = cf_order_id;
 		this.rest_id = rest_id;
@@ -63,10 +67,12 @@ public class CustFoodOrder {
 		this.cf_order_quantity = cf_order_quantity;
 		this.cf_order_amount = cf_order_amount;
 		this.cf_order_status = cf_order_status;
+		this.cf_order_delivery_location = cf_order_delivery_location;
 	}
 
 	public CustFoodOrder() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	public int getCf_order_id() {
@@ -155,6 +161,14 @@ public class CustFoodOrder {
 
 	public void setCf_order_status(String cf_order_status) {
 		this.cf_order_status = cf_order_status;
+	}
+
+	public String getCf_order_delivery_location() {
+		return cf_order_delivery_location;
+	}
+
+	public void setCf_order_delivery_location(String cf_order_delivery_location) {
+		this.cf_order_delivery_location = cf_order_delivery_location;
 	}
 
 }

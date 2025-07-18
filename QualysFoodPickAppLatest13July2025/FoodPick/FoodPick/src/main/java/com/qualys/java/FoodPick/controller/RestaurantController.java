@@ -12,10 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.qualys.java.FoodPick.DTO.MenuOpsDTO;
+import com.qualys.java.FoodPick.DTO.RestMenuDTO;
 import com.qualys.java.FoodPick.DTO.RestaurantDTO;
 import com.qualys.java.FoodPick.IdGenerator.GenerateIdImpl;
+import com.qualys.java.FoodPick.IdGenerator.GenerateMenuItemId;
 import com.qualys.java.FoodPick.entity.RestAddr;
-import com.qualys.java.FoodPick.entity.Restaurant;
+import com.qualys.java.FoodPick.service.MenuService;
 import com.qualys.java.FoodPick.service.RestaurantService;
 
 @RestController
@@ -25,8 +28,14 @@ public class RestaurantController {
 	@Autowired(required = true)
 	public GenerateIdImpl genId;
 
+	@Autowired(required = true)
+	public GenerateMenuItemId menuItemId;
+
 	@Autowired
 	private RestaurantService restaurantService;
+	
+	@Autowired
+	private MenuService menuService;
 
 	@PostMapping
 	public ResponseEntity<String> createRestaurant(@RequestBody RestaurantDTO restaurant) {
@@ -34,12 +43,22 @@ public class RestaurantController {
 		restaurantService.createNewRestaurant(restaurant);
 		restaurant.setRest_addr_id(genId.generateId());
 		restaurantService.saveRestaurantAddress(restaurant);
+		restaurant.setItem_id(menuItemId.generateId());
+		restaurantService.addMenuItems(restaurant);
 		return ResponseEntity.ok("Done");
 	}
 
-	@RequestMapping(value = "/viewRest", method = RequestMethod.GET, produces = "application/json")
-	public ResponseEntity<List<Restaurant>> getAllRestaurants() {
-		List<Restaurant> restaurants = restaurantService.getAllRestaurants();
+	@RequestMapping(value = "/createMenu/{rest_id}", method = RequestMethod.POST, consumes = "application/json")
+	public ResponseEntity<String> addMenuItem(@PathVariable("rest_id") int rest_id, @RequestBody MenuOpsDTO menu) {
+		menu.setItem_id(menuItemId.generateId());
+		menu.setRest_id(rest_id);
+		restaurantService.createMenu(menu);
+		return ResponseEntity.ok("Done");
+	}
+
+	@RequestMapping(value = "/viewRest/{rest_id}", method = RequestMethod.GET, produces = "application/json")
+	public ResponseEntity<RestMenuDTO> getAllRestaurants(@PathVariable int rest_id) {
+		RestMenuDTO restaurants = restaurantService.getRestaurantMenuDetails(rest_id);
 		return ResponseEntity.ok(restaurants);
 	}
 
@@ -52,6 +71,18 @@ public class RestaurantController {
 	@RequestMapping(value = "restChange/{id}", method = RequestMethod.PATCH, consumes = "application/json")
 	public ResponseEntity<String> updateRestaurant(@PathVariable int id, @RequestBody RestaurantDTO restaurant) {
 		String message = restaurantService.updateRestaurantDetails(id, restaurant);
+		if (message.contains("successfully")) {
+			return ResponseEntity.ok(message);
+		} else if (message.contains("Nothing")) {
+			return ResponseEntity.badRequest().body(message);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	@RequestMapping(value = "menuChange/{item_id}", method = RequestMethod.PATCH, consumes = "application/json")
+	public ResponseEntity<String> updateMenu(@PathVariable int item_id, @RequestBody MenuOpsDTO menu) {
+		String message = menuService.updateMenuDetails(item_id, menu);
 		if (message.contains("successfully")) {
 			return ResponseEntity.ok(message);
 		} else if (message.contains("Nothing")) {

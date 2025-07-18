@@ -6,9 +6,13 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.qualys.java.FoodPick.DTO.MenuOpsDTO;
+import com.qualys.java.FoodPick.DTO.RestMenuDTO;
 import com.qualys.java.FoodPick.DTO.RestaurantDTO;
+import com.qualys.java.FoodPick.entity.Menu;
 import com.qualys.java.FoodPick.entity.RestAddr;
 import com.qualys.java.FoodPick.entity.Restaurant;
+import com.qualys.java.FoodPick.repository.MenuRepository;
 import com.qualys.java.FoodPick.repository.RestAddrRepo;
 import com.qualys.java.FoodPick.repository.RestaurantRepository;
 
@@ -19,12 +23,14 @@ public class RestaurantService {
 	public RestaurantRepository restaurantRepository;
 
 	@Autowired
+	public MenuRepository menuRepo;
+
+	@Autowired
 	public RestAddrRepo restAddrRepo;
 
 	public void createNewRestaurant(RestaurantDTO restaurant) {
 		restaurantRepository.createNewRestaurant(restaurant.getRest_id(), restaurant.getRest_name(),
-				restaurant.getRest_location(), restaurant.getRest_category(), restaurant.getRest_menu(),
-				restaurant.getRest_phone_no());
+				restaurant.getRest_location(), restaurant.getRest_phone_no());
 	}
 
 	public void saveRestaurantAddress(RestaurantDTO restaurant) {
@@ -33,8 +39,38 @@ public class RestaurantService {
 				restaurant.getRest_city(), restaurant.getRest_state(), restaurant.getRest_pin_code());
 	}
 
-	public List<Restaurant> getAllRestaurants() {
-		return restaurantRepository.getAllRestaurants();
+	public void addMenuItems(RestaurantDTO restaurant) {
+		menuRepo.insertMenu(restaurant.getItem_id(), restaurant.getItem_name(),
+				restaurant.getItem_price(), restaurant.getRest_id());
+	}
+	
+	public void createMenu(MenuOpsDTO menu) {
+		menuRepo.createMenu(menu.getItem_id(), menu.getItem_name(),
+				menu.getItem_price(), menu.getRest_id());
+	}
+	
+	public String updateMenu() {
+		return "";
+	}
+
+	public RestMenuDTO getRestaurantMenuDetails(int id) {
+		List<Object[]> rows = menuRepo.findMenuItemsByRestaurantId(id);
+
+		if (rows.isEmpty()) {
+			return null; // or throw NotFound
+		}
+
+		Object[] firstRow = rows.get(0);
+		RestMenuDTO dto = new RestMenuDTO((Integer) firstRow[0], (String) firstRow[1], (String) firstRow[2],
+				((Number) firstRow[3]).longValue());
+
+		for (Object[] row : rows) {
+			String itemName = (String) row[4];
+			double itemPrice = ((Number) row[5]).doubleValue();
+			dto.addItem(itemName, itemPrice);
+		}
+
+		return dto;
 	}
 
 	public List<RestAddr> getRestaurantAddress() {
@@ -66,12 +102,9 @@ public class RestaurantService {
 			restDelta.setRest_location(restaurant.getRest_location());
 			isUpdatedFlag = false;
 		}
-		if (restDelta.getRest_category() == null) {
-			restDelta.setRest_category(restaurant.getRest_category());
-			isUpdatedFlag = false;
-		}
-		if (restDelta.getRest_menu() == null) {
-			restDelta.setRest_menu(restaurant.getRest_menu());
+
+		if (restDelta.getMenu_items() == null) {
+			restDelta.setMenu_items(restaurant.getMenu_items());
 			isUpdatedFlag = false;
 		}
 		if (restDelta.getRest_phone_no() == 0L) {
@@ -90,14 +123,8 @@ public class RestaurantService {
 			isUpdatedFlag = true;
 		}
 
-		if (restDelta.getRest_category() != null
-				&& !restDelta.getRest_category().equals(restaurant.getRest_category())) {
-			restDelta.getRest_category();
-			isUpdatedFlag = true;
-		}
-
-		if (restDelta.getRest_menu() != null && !restDelta.getRest_menu().equals(restaurant.getRest_menu())) {
-			restDelta.getRest_menu();
+		if (restDelta.getMenu_items() != null && !restDelta.getMenu_items().equals(restaurant.getMenu_items())) {
+			restDelta.getMenu_items();
 			isUpdatedFlag = true;
 		}
 
@@ -108,8 +135,7 @@ public class RestaurantService {
 
 		if (isUpdatedFlag) {
 			int rows = restaurantRepository.updateRestaurantDetails(id, restDelta.getRest_name(),
-					restDelta.getRest_location(), restDelta.getRest_category(), restDelta.getRest_menu(),
-					restDelta.getRest_phone_no());
+					restDelta.getRest_location(), restDelta.getMenu_items(), restDelta.getRest_phone_no());
 			return rows > 0 ? "Restaurant Details updated successfully." : "Restaurant not found.";
 		} else {
 			return "Nothing to Update";
@@ -185,13 +211,28 @@ public class RestaurantService {
 		}
 
 		if (isUpdatedFlag) {
-			int rows = restAddrRepo.updateRestAddr(id, restDelta.getRest_shop_no(),
-					restDelta.getRest_street_name(), restDelta.getRest_floor_num(), restDelta.getRest_area(),
-					restDelta.getRest_city(), restDelta.getRest_state(), restDelta.getRest_pin_code());
+			int rows = restAddrRepo.updateRestAddr(id, restDelta.getRest_shop_no(), restDelta.getRest_street_name(),
+					restDelta.getRest_floor_num(), restDelta.getRest_area(), restDelta.getRest_city(),
+					restDelta.getRest_state(), restDelta.getRest_pin_code());
 			return rows > 0 ? "Restaurant Address updated successfully." : "Restaurant not found.";
 		} else {
 			return "Nothing to Update";
 		}
+	}
+
+	// Fetch all menu items for a given restaurant
+	public List<Menu> getMenuByRestaurantId(int restId) {
+		return menuRepo.findMenuByRestaurantId(restId);
+	}
+
+	// Update menu item by ID
+	public void updateMenu(int itemId, String itemName, double itemPrice) {
+		menuRepo.updateMenu(itemId, itemName, itemPrice);
+	}
+
+	// Delete menu item by ID
+	public void deleteMenu(int itemId) {
+		menuRepo.deleteByItemId(itemId);
 	}
 
 	private Optional<Restaurant> getRestaurantDetails(int id) {
