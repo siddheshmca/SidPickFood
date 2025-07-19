@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.qualys.java.FoodPick.DTO.MenuOpsDTO;
 import com.qualys.java.FoodPick.DTO.RestMenuDTO;
 import com.qualys.java.FoodPick.DTO.RestaurantDTO;
 import com.qualys.java.FoodPick.IdGenerator.GenerateIdImpl;
@@ -33,7 +32,7 @@ public class RestaurantController {
 
 	@Autowired
 	private RestaurantService restaurantService;
-	
+
 	@Autowired
 	private MenuService menuService;
 
@@ -45,14 +44,6 @@ public class RestaurantController {
 		restaurantService.saveRestaurantAddress(restaurant);
 		restaurant.setItem_id(menuItemId.generateId());
 		restaurantService.addMenuItems(restaurant);
-		return ResponseEntity.ok("Done");
-	}
-
-	@RequestMapping(value = "/createMenu/{rest_id}", method = RequestMethod.POST, consumes = "application/json")
-	public ResponseEntity<String> addMenuItem(@PathVariable("rest_id") int rest_id, @RequestBody MenuOpsDTO menu) {
-		menu.setItem_id(menuItemId.generateId());
-		menu.setRest_id(rest_id);
-		restaurantService.createMenu(menu);
 		return ResponseEntity.ok("Done");
 	}
 
@@ -79,18 +70,6 @@ public class RestaurantController {
 			return ResponseEntity.notFound().build();
 		}
 	}
-	
-	@RequestMapping(value = "menuChange/{item_id}", method = RequestMethod.PATCH, consumes = "application/json")
-	public ResponseEntity<String> updateMenu(@PathVariable int item_id, @RequestBody MenuOpsDTO menu) {
-		String message = menuService.updateMenuDetails(item_id, menu);
-		if (message.contains("successfully")) {
-			return ResponseEntity.ok(message);
-		} else if (message.contains("Nothing")) {
-			return ResponseEntity.badRequest().body(message);
-		} else {
-			return ResponseEntity.notFound().build();
-		}
-	}
 
 	@RequestMapping(value = "restAddrChange/{id}", method = RequestMethod.PATCH, consumes = "application/json")
 	public ResponseEntity<String> updateRestaurantAddress(@PathVariable int id, @RequestBody RestaurantDTO restaurant) {
@@ -105,10 +84,12 @@ public class RestaurantController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<String> deleteCustomer(@PathVariable int id) {
+	public ResponseEntity<String> deleteRestaurant(@PathVariable int id) {
+		String menuDel = menuService.deleteMenu(id);
 		String restAddrDel = restaurantService.deleteRestaurantAddr(id);
 		String restDel = restaurantService.deleteRestaurant(id);
-		if (restAddrDel.contains("Successfully") && restDel.contains("Successfully")) {
+		if (restAddrDel.contains("Successfully") && restDel.contains("Successfully")
+				&& menuDel.contains("Successfully")) {
 			return ResponseEntity.ok(restAddrDel + restDel);
 		} else {
 			return ResponseEntity.notFound().build();

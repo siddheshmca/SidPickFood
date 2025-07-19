@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.qualys.java.FoodPick.DTO.MenuOpsDTO;
 import com.qualys.java.FoodPick.DTO.RestMenuDTO;
 import com.qualys.java.FoodPick.DTO.RestaurantDTO;
-import com.qualys.java.FoodPick.entity.Menu;
 import com.qualys.java.FoodPick.entity.RestAddr;
 import com.qualys.java.FoodPick.entity.Restaurant;
 import com.qualys.java.FoodPick.repository.MenuRepository;
@@ -40,15 +39,14 @@ public class RestaurantService {
 	}
 
 	public void addMenuItems(RestaurantDTO restaurant) {
-		menuRepo.insertMenu(restaurant.getItem_id(), restaurant.getItem_name(),
-				restaurant.getItem_price(), restaurant.getRest_id());
+		menuRepo.insertMenu(restaurant.getItem_id(), restaurant.getItem_name(), restaurant.getItem_price(),
+				restaurant.getRest_id());
 	}
-	
+
 	public void createMenu(MenuOpsDTO menu) {
-		menuRepo.createMenu(menu.getItem_id(), menu.getItem_name(),
-				menu.getItem_price(), menu.getRest_id());
+		menuRepo.createMenu(menu.getItem_id(), menu.getItem_name(), menu.getItem_price(), menu.getRest_id());
 	}
-	
+
 	public String updateMenu() {
 		return "";
 	}
@@ -135,7 +133,7 @@ public class RestaurantService {
 
 		if (isUpdatedFlag) {
 			int rows = restaurantRepository.updateRestaurantDetails(id, restDelta.getRest_name(),
-					restDelta.getRest_location(), restDelta.getMenu_items(), restDelta.getRest_phone_no());
+					restDelta.getRest_location(), restDelta.getRest_phone_no());
 			return rows > 0 ? "Restaurant Details updated successfully." : "Restaurant not found.";
 		} else {
 			return "Nothing to Update";
@@ -218,21 +216,6 @@ public class RestaurantService {
 		} else {
 			return "Nothing to Update";
 		}
-	}
-
-	// Fetch all menu items for a given restaurant
-	public List<Menu> getMenuByRestaurantId(int restId) {
-		return menuRepo.findMenuByRestaurantId(restId);
-	}
-
-	// Update menu item by ID
-	public void updateMenu(int itemId, String itemName, double itemPrice) {
-		menuRepo.updateMenu(itemId, itemName, itemPrice);
-	}
-
-	// Delete menu item by ID
-	public void deleteMenu(int itemId) {
-		menuRepo.deleteByItemId(itemId);
 	}
 
 	private Optional<Restaurant> getRestaurantDetails(int id) {

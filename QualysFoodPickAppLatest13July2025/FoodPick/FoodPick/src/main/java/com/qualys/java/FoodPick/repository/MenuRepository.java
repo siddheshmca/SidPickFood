@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.qualys.java.FoodPick.DTO.MenuDTO;
 import com.qualys.java.FoodPick.entity.Menu;
 
 import jakarta.transaction.Transactional;
@@ -16,8 +17,8 @@ import jakarta.transaction.Transactional;
 @Repository
 public interface MenuRepository extends JpaRepository<Menu, Long> {
 
-	@Query(value = "SELECT * FROM menu WHERE rest_id = :rest_id", nativeQuery = true)
-	List<Menu> findMenuByRestaurantId(@Param("rest_id") int rest_id);
+	@Query(value = "SELECT item_name, item_price FROM menu WHERE rest_id = :rest_id", nativeQuery = true)
+	List<MenuDTO> findMenuByRestaurantId(@Param("rest_id") int rest_id);
 
 	@Modifying
 	@Transactional
@@ -41,6 +42,11 @@ public interface MenuRepository extends JpaRepository<Menu, Long> {
 	@Transactional
 	@Query(value = "DELETE FROM menu WHERE item_id = :item_id", nativeQuery = true)
 	int deleteByItemId(@Param("item_id") int item_id);
+	
+	@Modifying
+	@Transactional
+	@Query(value = "DELETE FROM menu WHERE rest_id = :rest_id", nativeQuery = true)
+	int deleteMenu(@Param("rest_id") int rest_id);
 
 	@Query(value = "SELECT r.rest_id, r.rest_name, r.rest_location, r.rest_phone_no, m.item_name, m.item_price FROM restaurant r JOIN menu m ON r.rest_id = m.rest_id WHERE r.rest_id = :rest_id", nativeQuery = true)
 	List<Object[]> findMenuItemsByRestaurantId(@Param("rest_id") int rest_id);

@@ -1,10 +1,12 @@
 package com.qualys.java.FoodPick.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.qualys.java.FoodPick.DTO.MenuDTO;
 import com.qualys.java.FoodPick.DTO.MenuOpsDTO;
 import com.qualys.java.FoodPick.entity.Menu;
 import com.qualys.java.FoodPick.repository.MenuRepository;
@@ -19,6 +21,9 @@ public class MenuService {
 		menuRepository.createMenu(menu.getItem_id(), menu.getItem_name(), menu.getItem_price(), menu.getRest_id());
 	}
 
+	public List<MenuDTO> getMenuByRestaurantId(int restId) {
+        return menuRepository.findMenuByRestaurantId(restId);
+    }
 	
 	public String updateMenuDetails(int id, MenuOpsDTO restDelta) {
 		Menu menu = getMenuDetails(id).get();
@@ -52,6 +57,17 @@ public class MenuService {
 			return "Nothing to Update";
 		}
 	}
+	
+	public String deleteMenu(int id) {
+		int rows = menuRepository.deleteMenu(id);
+		return rows > 0 ? "Menu Deleted Successfully." : "Menu Not Found.";
+	}
+	
+	public String deleteItemFromMenu(int id) {
+		int rows = menuRepository.deleteByItemId(id);
+		return rows > 0 ? "Menu Item Deleted Successfully." : "Menu Item Not Found.";
+	}
+
 
 	private Optional<Menu> getMenuDetails(int id) {
 		return menuRepository.findById(id);

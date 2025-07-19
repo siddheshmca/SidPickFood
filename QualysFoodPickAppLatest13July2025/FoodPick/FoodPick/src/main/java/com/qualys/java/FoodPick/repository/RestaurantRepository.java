@@ -28,10 +28,9 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, ID> {
 
 	@Modifying
 	@Transactional
-	@Query(value = "UPDATE restaurant SET rest_name = :rest_name, rest_location = :rest_location, rest_menu=:rest_menu, rest_phone_no = :rest_phone_no  WHERE rest_id = :rest_id", nativeQuery = true)
+	@Query(value = "UPDATE restaurant SET rest_name = :rest_name, rest_location = :rest_location, rest_phone_no = :rest_phone_no  WHERE rest_id = :rest_id", nativeQuery = true)
 	int updateRestaurantDetails(@Param("rest_id") int rest_id, @Param("rest_name") String rest_name,
-			@Param("rest_location") String rest_location, @Param("rest_menu") List<Menu> rest_menu,
-			@Param("rest_phone_no") long rest_phone_no);
+			@Param("rest_location") String rest_location, @Param("rest_phone_no") long rest_phone_no);
 
 	@Modifying
 	@Transactional
