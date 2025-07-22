@@ -52,23 +52,17 @@ INSERT INTO rest_addr (rest_addr_id, rest_id, rest_shop_no, rest_street_name, re
 (170005, 200005, 5, 'Air India Office Rd', 2, 'Nariman Point', 'Mumbai', 'Maharashtra', 400032),
 (170006, 200006, 15, 'Pheonix Market City', 2, 'Lower Parel', 'Mumbai', 'Maharashtra', 400076);
 
-INSERT INTO cust_food_order
-(cf_order_id, rest_id, cust_id, cust_Phone_No, cust_addr_id, cf_order_date, cf_order_items, cf_price_items, cf_order_quantity, cf_order_amount, cf_order_status, cf_order_delivery_location)
-VALUES
-(2001, 200001, 100001, 9876543210, 150001, CURRENT_TIMESTAMP, 'Burger, Fries', 150.0, 2, 300.0, 'Placed','Flat No. 4509, 45 Floor, A wing, Blue Heights Tower, Blue Heights CHS, Worli Seaface Rd, Worli, Mumbai, Maharashtra, 400024'),
-(2002, 200002, 100002, 8765432109, 150002, CURRENT_TIMESTAMP, 'Pizza, Coke', 250.0, 1, 250.0, 'Completed','Flat No. 4509, 45 Floor, A wing, Blue Heights Tower, Blue Heights CHS, Worli Seaface Rd, Worli, Mumbai, Maharashtra, 400024'),
-(2003, 200003, 100003, 7654321098, 150003, CURRENT_TIMESTAMP, 'Pasta, Salad', 180.0, 3, 540.0, 'Pending','Flat No. 4509, 45 Floor, A wing, Blue Heights Tower, Blue Heights CHS, Worli Seaface Rd, Worli, Mumbai, Maharashtra, 400024'),
-(2004, 200004, 100004, 6543210987, 150004, CURRENT_TIMESTAMP, 'Samosa', 50.0, 5, 250.0, 'Completed','Flat No. 4509, 45 Floor, A wing, Blue Heights Tower, Blue Heights CHS, Worli Seaface Rd, Worli, Mumbai, Maharashtra, 400024'),
-(2005, 200006, 100007, 8546785467, 150007, CURRENT_TIMESTAMP, 'Sushi', 400.0, 2, 800.0, 'Completed','Flat No. 4509, 45 Floor, A wing, Blue Heights Tower, Blue Heights CHS, Worli Seaface Rd, Worli, Mumbai, Maharashtra, 400024');
-
+INSERT INTO cust_food_order (cf_order_id, rest_id, cust_id, cust_Phone_No, cust_addr_id, cf_order_date, item_price_map, cf_order_amount, cf_order_status, cf_order_delivery_location)
+VALUES (2001, 200001, 100001, 9876543210, 150001, TIMESTAMP '2025-07-22 12:30:00',
+' "Greek Salad": 180.50, : 1,
+  "Kale Caesar Salad": 195.00, : 1,
+  "Hummus & Veggies": 110.00, : 1',
+    485.5, 'PLACED', '4th Floor Block B Tech Park Bengaluru');
+    
 INSERT INTO payment
 (payment_id, cust_id, cf_order_id, rest_id, payment_total_amount, payment_mode, payment_status)
 VALUES
-(1001, 100001, 2001, 200001, 300.0, 'UPI', 'Completed'),
-(1002, 100002, 2002, 200002, 250.0, 'Cash', 'Completed'),
-(1003, 100003, 2003, 200003, 540.0, 'Debit Card', 'Pending'),
-(1004, 100004, 2004, 200004, 250.0, 'Net Banking', 'Completed'),
-(1005, 100005, 2005, 200005, 550.75, 'Credit Card', 'Completed');
+(1001, 100001, 2001, 200001, 300.0, 'UPI', 'Completed');
 
 INSERT INTO menu (item_id, item_name, item_price, rest_id) VALUES (1001, 'Greek Salad', 180.50, 200001);
 INSERT INTO menu (item_id, item_name, item_price, rest_id) VALUES (1002, 'Quinoa Bowl', 220.00, 200001);

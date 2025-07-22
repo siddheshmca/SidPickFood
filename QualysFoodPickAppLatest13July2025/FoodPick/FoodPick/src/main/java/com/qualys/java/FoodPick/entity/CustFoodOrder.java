@@ -1,11 +1,16 @@
 package com.qualys.java.FoodPick.entity;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapKeyColumn;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -33,11 +38,11 @@ public class CustFoodOrder {
 	@Column(name = "cf_order_date")
 	private LocalDateTime cf_order_date;
 
-	@Column(name = "cf_order_items")
-	private String cf_order_items;
-
-	@Column(name = "cf_price_items")
-	private double cf_price_items;
+	@ElementCollection
+	@CollectionTable(name = "item_price", joinColumns = @JoinColumn(name = "cf_order_id"))
+	@MapKeyColumn(name = "item_name")
+	@Column(name = "item_price")
+	private Map<String, Double> item_price_map = new HashMap<>();
 
 	@Column(name = "cf_order_quantity")
 	private double cf_order_quantity;
@@ -52,7 +57,7 @@ public class CustFoodOrder {
 	private String cf_order_delivery_location;
 
 	public CustFoodOrder(int cf_order_id, Restaurant rest_id, Customer cust_id, long cust_Phone_No,
-			CustAddr cust_addr_id, LocalDateTime cf_order_date, String cf_order_items, double cf_price_items,
+			CustAddr cust_addr_id, LocalDateTime cf_order_date, Map<String, Double> item_price_map,
 			double cf_order_quantity, double cf_order_amount, String cf_order_status,
 			String cf_order_delivery_location) {
 		super();
@@ -62,8 +67,7 @@ public class CustFoodOrder {
 		this.cust_Phone_No = cust_Phone_No;
 		this.cust_addr_id = cust_addr_id;
 		this.cf_order_date = cf_order_date;
-		this.cf_order_items = cf_order_items;
-		this.cf_price_items = cf_price_items;
+		this.item_price_map = item_price_map;
 		this.cf_order_quantity = cf_order_quantity;
 		this.cf_order_amount = cf_order_amount;
 		this.cf_order_status = cf_order_status;
@@ -72,7 +76,6 @@ public class CustFoodOrder {
 
 	public CustFoodOrder() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public int getCf_order_id() {
@@ -123,20 +126,12 @@ public class CustFoodOrder {
 		this.cf_order_date = cf_order_date;
 	}
 
-	public String getCf_order_items() {
-		return cf_order_items;
+	public Map<String, Double> getItem_price_map() {
+		return item_price_map;
 	}
 
-	public void setCf_order_items(String cf_order_items) {
-		this.cf_order_items = cf_order_items;
-	}
-
-	public double getCf_price_items() {
-		return cf_price_items;
-	}
-
-	public void setCf_price_items(double cf_price_items) {
-		this.cf_price_items = cf_price_items;
+	public void setItem_price_map(Map<String, Double> item_price_map) {
+		this.item_price_map = item_price_map;
 	}
 
 	public double getCf_order_quantity() {

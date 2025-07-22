@@ -2,6 +2,7 @@ package com.qualys.java.FoodPick.DTO;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.qualys.java.FoodPick.entity.Menu;
 
@@ -10,6 +11,7 @@ public class RestaurantDTO {
 	private int rest_id;
 	private String rest_name;
 	private String rest_location;
+	@JsonIgnore
 	private List<Menu> menu_items;
 	private long rest_phone_no;
 

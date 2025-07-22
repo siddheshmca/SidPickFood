@@ -48,9 +48,7 @@ CREATE TABLE cust_food_order (
 	,cust_Phone_No BIGINT
 	,cust_addr_id INT
 	,cf_order_date TIMESTAMP
-	,cf_order_items VARCHAR(255)
-	,cf_price_items DOUBLE
-	,cf_order_quantity DOUBLE
+	,item_price_map CLOB
 	,cf_order_amount DOUBLE
 	,cf_order_status VARCHAR(50)
 	,cf_order_delivery_location VARCHAR(255)
