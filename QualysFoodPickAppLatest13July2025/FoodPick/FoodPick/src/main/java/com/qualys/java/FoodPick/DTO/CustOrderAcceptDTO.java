@@ -10,15 +10,14 @@ public class CustOrderAcceptDTO {
 	private int rest_id;
 	private int rest_addr_id;
 	private LocalDateTime cf_order_date;
-	private List<CustMenuDTO> menuItems;
-	private double cf_order_quantity;
+	private List<CustMenuDTO> item_price_map;
 	private double cf_order_amount;
 	private String cf_order_status;
 	private String cf_restaurant_location;
 	private String cf_order_delivery_location;
 
 	public CustOrderAcceptDTO(int cust_id, int cust_addr_id, int rest_id, int rest_addr_id, LocalDateTime cf_order_date,
-			List<CustMenuDTO> menuItems, double cf_order_quantity, double cf_order_amount, String cf_order_status,
+			List<CustMenuDTO> item_price_map, double cf_order_amount, String cf_order_status,
 			String cf_restaurant_location, String cf_order_delivery_location) {
 		super();
 		this.cust_id = cust_id;
@@ -26,8 +25,7 @@ public class CustOrderAcceptDTO {
 		this.rest_id = rest_id;
 		this.rest_addr_id = rest_addr_id;
 		this.cf_order_date = cf_order_date;
-		this.menuItems = menuItems;
-		this.cf_order_quantity = cf_order_quantity;
+		this.item_price_map = item_price_map;
 		this.cf_order_amount = cf_order_amount;
 		this.cf_order_status = cf_order_status;
 		this.cf_restaurant_location = cf_restaurant_location;
@@ -78,20 +76,12 @@ public class CustOrderAcceptDTO {
 		this.cf_order_date = cf_order_date;
 	}
 
-	public List<CustMenuDTO> getMenuItems() {
-		return menuItems;
+	public List<CustMenuDTO> getItem_price_map() {
+		return item_price_map;
 	}
 
-	public void setMenuItems(List<CustMenuDTO> menuItems) {
-		this.menuItems = menuItems;
-	}
-
-	public double getCf_order_quantity() {
-		return cf_order_quantity;
-	}
-
-	public void setCf_order_quantity(double cf_order_quantity) {
-		this.cf_order_quantity = cf_order_quantity;
+	public void setItem_price_map(List<CustMenuDTO> item_price_map) {
+		this.item_price_map = item_price_map;
 	}
 
 	public double getCf_order_amount() {
