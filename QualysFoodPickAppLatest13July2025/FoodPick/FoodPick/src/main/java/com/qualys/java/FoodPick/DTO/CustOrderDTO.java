@@ -1,32 +1,22 @@
 package com.qualys.java.FoodPick.DTO;
 
 import java.time.LocalDateTime;
-import java.util.Map;
-
-import com.qualys.java.FoodPick.converter.ItemPriceMapConverter;
-
-import jakarta.persistence.Convert;
-import jakarta.persistence.Lob;
+import java.util.List;
 
 public class CustOrderDTO {
 
 	private LocalDateTime cf_order_date;
-	@Lob
-	@Convert(converter = ItemPriceMapConverter.class)
-	private Map<String, Double> itemPriceMap;
-	private double cf_order_quantity;
+	private List<CustMenuDTO> item_price_map;
 	private double cf_order_amount;
 	private String cf_order_status;
 	private String cf_restaurant_location;
 	private String cf_order_delivery_location;
 
-	public CustOrderDTO(LocalDateTime cf_order_date, Map<String, Double> itemPriceMap, double cf_order_quantity,
-			double cf_order_amount, String cf_order_status, String cf_restaurant_location,
-			String cf_order_delivery_location) {
+	public CustOrderDTO(LocalDateTime cf_order_date, List<CustMenuDTO> item_price_map, double cf_order_amount,
+			String cf_order_status, String cf_restaurant_location, String cf_order_delivery_location) {
 		super();
 		this.cf_order_date = cf_order_date;
-		this.itemPriceMap = itemPriceMap;
-		this.cf_order_quantity = cf_order_quantity;
+		this.item_price_map = item_price_map;
 		this.cf_order_amount = cf_order_amount;
 		this.cf_order_status = cf_order_status;
 		this.cf_restaurant_location = cf_restaurant_location;
@@ -45,20 +35,12 @@ public class CustOrderDTO {
 		this.cf_order_date = cf_order_date;
 	}
 
-	public Map<String, Double> getItemPriceMap() {
-		return itemPriceMap;
+	public List<CustMenuDTO> getItem_price_map() {
+		return item_price_map;
 	}
 
-	public void setItemPriceMap(Map<String, Double> itemPriceMap) {
-		this.itemPriceMap = itemPriceMap;
-	}
-
-	public double getCf_order_quantity() {
-		return cf_order_quantity;
-	}
-
-	public void setCf_order_quantity(double cf_order_quantity) {
-		this.cf_order_quantity = cf_order_quantity;
+	public void setItem_price_map(List<CustMenuDTO> item_price_map) {
+		this.item_price_map = item_price_map;
 	}
 
 	public double getCf_order_amount() {

@@ -1,35 +1,16 @@
 package com.qualys.java.FoodPick.DTO;
 
 import java.time.LocalDateTime;
-import java.util.Map;
+import java.util.List;
 
 public class CustOrderAcceptDTO {
 
-	// @Column(name = "cust_id") from Customer Table
 	private int cust_id;
-
-	// @Column(name = "cust_addr_id") from CUST_ADDR Table
 	private int cust_addr_id;
-
-	// @Column(name = "rest_id") from Restaurant Table
 	private int rest_id;
-	// @Column(name = "rest_addr_id") from REST_ADDR Table
 	private int rest_addr_id;
-
 	private LocalDateTime cf_order_date;
-
-	/*
-	 * From Menu Table
-	 * 
-	 * @Column(name = "item_name", nullable = false, length = 255) private String
-	 * item_name;
-	 * 
-	 * @Column(name = "item_price", nullable = false) private double item_price;
-	 * 
-	 * @Column(name = "item_id") from MENU Table //private int item_id; Fetch
-	 * itemPriceMap with this field from Menu Table
-	 */
-	private Map<String, Double> itemPriceMap;
+	private List<CustMenuDTO> menuItems;
 	private double cf_order_quantity;
 	private double cf_order_amount;
 	private String cf_order_status;
@@ -37,7 +18,7 @@ public class CustOrderAcceptDTO {
 	private String cf_order_delivery_location;
 
 	public CustOrderAcceptDTO(int cust_id, int cust_addr_id, int rest_id, int rest_addr_id, LocalDateTime cf_order_date,
-			Map<String, Double> itemPriceMap, double cf_order_quantity, double cf_order_amount, String cf_order_status,
+			List<CustMenuDTO> menuItems, double cf_order_quantity, double cf_order_amount, String cf_order_status,
 			String cf_restaurant_location, String cf_order_delivery_location) {
 		super();
 		this.cust_id = cust_id;
@@ -45,7 +26,7 @@ public class CustOrderAcceptDTO {
 		this.rest_id = rest_id;
 		this.rest_addr_id = rest_addr_id;
 		this.cf_order_date = cf_order_date;
-		this.itemPriceMap = itemPriceMap;
+		this.menuItems = menuItems;
 		this.cf_order_quantity = cf_order_quantity;
 		this.cf_order_amount = cf_order_amount;
 		this.cf_order_status = cf_order_status;
@@ -97,12 +78,12 @@ public class CustOrderAcceptDTO {
 		this.cf_order_date = cf_order_date;
 	}
 
-	public Map<String, Double> getItemPriceMap() {
-		return itemPriceMap;
+	public List<CustMenuDTO> getMenuItems() {
+		return menuItems;
 	}
 
-	public void setItemPriceMap(Map<String, Double> itemPriceMap) {
-		this.itemPriceMap = itemPriceMap;
+	public void setMenuItems(List<CustMenuDTO> menuItems) {
+		this.menuItems = menuItems;
 	}
 
 	public double getCf_order_quantity() {
